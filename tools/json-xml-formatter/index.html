@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON / XML Formatter - toolkit</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="../../index.html" class="nav__brand">toolkit</a>
+        <ul class="nav__links">
+          <li><a href="../../index.html" class="nav__link">Tools</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container" style="padding-top: 32px; padding-bottom: 48px">
+      <div class="page-header">
+        <h2>JSON / XML Formatter</h2>
+        <p>格式化、压缩和查看 JSON 和 XML 数据</p>
+      </div>
+
+      <div class="tab-container">
+        <button class="tab-btn active" data-mode="json">JSON</button>
+        <button class="tab-btn" data-mode="xml">XML</button>
+        <button class="tab-btn" data-mode="auto">Auto Detect</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button class="btn btn-small btn-primary" id="formatBtn">
+            Format
+          </button>
+          <button class="btn btn-small btn-secondary" id="minifyBtn">
+            Minify
+          </button>
+          <button class="btn btn-small btn-secondary" id="copyBtn">Copy</button>
+          <button class="btn btn-small btn-secondary" id="clearBtn">
+            Clear
+          </button>
+        </div>
+        <div class="toolbar-right">
+          <div class="indent-group">
+            <label class="indent-label">Indent:</label>
+            <select class="indent-select" id="indentSelect">
+              <option value="2">2 spaces</option>
+              <option value="4" selected>4 spaces</option>
+              <option value="tab">Tab</option>
+            </select>
+          </div>
+          <div class="view-group">
+            <button
+              class="view-btn active"
+              data-view="code"
+              title="Code View"
+            ></button>
+            <button
+              class="view-btn"
+              data-view="tree"
+              title="Tree View"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-container">
+        <div class="editor-panel">
+          <div class="editor-header">Input</div>
+          <textarea
+            id="inputEditor"
+            class="editor"
+            placeholder="Paste your JSON or XML here..."
+          ></textarea>
+        </div>
+        <div class="editor-panel">
+          <div class="editor-header">
+            Output
+            <span id="status" class="status"></span>
+          </div>
+          <div id="outputCode" class="output-view active">
+            <pre id="outputEditor" class="editor output-editor"></pre>
+          </div>
+          <div id="outputTree" class="output-view">
+            <div id="treeContainer" class="tree-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="errorMessage" class="error-message"></div>
+    </main>
+
+    <script src="../../js/sidebar.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initSidebar('json-xml-formatter');
+        if (window.initFormatter) {
+          window.initFormatter();
+        }
+      });
+    </script>
+  </body>
+</html>

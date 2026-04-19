@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLV Player - toolkit</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="../../index.html" class="nav__brand">toolkit</a>
+        <ul class="nav__links">
+          <li><a href="../../index.html" class="nav__link">Tools</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container" style="padding-top: 32px; padding-bottom: 48px">
+      <div class="page-header">
+        <h2>FLV Player</h2>
+        <p>FLV 流媒体播放器</p>
+      </div>
+
+      <div class="sp-section">
+        <div class="sp-section-header">Connection</div>
+        <div class="sp-connection">
+          <div class="sp-url-group">
+            <input type="text" id="streamUrl" class="input sp-input" placeholder="http://example.com/live.flv" />
+            <button class="btn btn-small btn-primary" id="playBtn">
+              Play
+            </button>
+            <button class="btn btn-small btn-secondary" id="stopBtn" disabled>
+              Stop
+            </button>
+          </div>
+          <div class="sp-status">
+            <span class="sp-status-dot" id="statusDot"></span>
+            <span class="sp-status-text" id="statusText">Stopped</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-section sp-player-section">
+        <div class="sp-section-header">Player</div>
+        <div class="sp-player-container">
+          <video id="videoPlayer" class="sp-video" controls></video>
+          <div class="sp-player-placeholder" id="playerPlaceholder">
+            <span>Enter FLV stream URL and click Play</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="lib/flv.min.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initSidebar('flv-player');
+        if (window.initFlvPlayer) {
+          window.initFlvPlayer();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timestamp Tool - toolkit</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="../../index.html" class="nav__brand">toolkit</a>
+        <ul class="nav__links">
+          <li><a href="../../index.html" class="nav__link">Tools</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container" style="padding-top: 32px; padding-bottom: 48px">
+      <div class="page-header">
+        <h2>Timestamp Tool</h2>
+        <p>时间戳与日期转换工具</p>
+      </div>
+
+      <div class="ts-section">
+        <div class="ts-section-header">Current Timestamp</div>
+        <div class="ts-current-container">
+          <div class="ts-current-value" id="currentTimestamp">1745049600</div>
+          <div class="ts-current-buttons">
+            <button class="btn btn-small btn-secondary ts-unit-btn active" data-unit="s">
+              Seconds
+            </button>
+            <button class="btn btn-small btn-secondary ts-unit-btn" data-unit="ms">
+              Milliseconds
+            </button>
+            <button class="btn btn-small btn-primary" id="copyCurrentBtn">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="ts-current-date" id="currentDate">2026-04-19 16:00:00</div>
+      </div>
+
+      <div class="ts-section">
+        <div class="ts-section-header">Timestamp → Date</div>
+        <div class="ts-input-group">
+          <input type="text" id="tsInput" class="input ts-input" placeholder="Enter timestamp (e.g. 1745049600)" />
+          <button class="btn btn-small btn-primary" id="convertTsBtn">
+            Convert
+          </button>
+        </div>
+        <div class="ts-result-container">
+          <span class="ts-result-label">Result:</span>
+          <span class="ts-result" id="tsDateResult">-</span>
+          <button class="btn btn-small btn-secondary" id="copyTsDateBtn" style="display: none;">
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="ts-section">
+        <div class="ts-section-header">Date → Timestamp</div>
+        <div class="ts-input-group">
+          <input type="datetime-local" id="dateInput" class="input ts-input" />
+          <button class="btn btn-small btn-primary" id="convertDateBtn">
+            Convert
+          </button>
+        </div>
+        <div class="ts-result-container">
+          <span class="ts-result-label">Result (Seconds):</span>
+          <span class="ts-result" id="dateTsResult">-</span>
+          <button class="btn btn-small btn-secondary" id="copyDateTsBtn" style="display: none;">
+            Copy
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/sidebar.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initSidebar('timestamp-tool');
+        if (window.initTimestampTool) {
+          window.initTimestampTool();
+        }
+      });
+    </script>
+  </body>
+</html>

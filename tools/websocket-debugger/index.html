@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Debugger - toolkit</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="../../index.html" class="nav__brand">toolkit</a>
+        <ul class="nav__links">
+          <li><a href="../../index.html" class="nav__link">Tools</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container" style="padding-top: 32px; padding-bottom: 48px">
+      <div class="page-header">
+        <h2>WebSocket Debugger</h2>
+        <p>WebSocket 连接调试工具</p>
+      </div>
+
+      <div class="ws-section">
+        <div class="ws-section-header">Connection</div>
+        <div class="ws-connection">
+          <div class="ws-url-group">
+            <input type="text" id="wsUrl" class="input ws-input" placeholder="ws://localhost:8080" value="wss://echo.websocket.org" />
+            <button class="btn btn-small btn-primary" id="connectBtn">
+              Connect
+            </button>
+            <button class="btn btn-small btn-secondary" id="disconnectBtn" disabled>
+              Disconnect
+            </button>
+          </div>
+          <div class="ws-status">
+            <span class="ws-status-dot" id="statusDot"></span>
+            <span class="ws-status-text" id="statusText">Disconnected</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws-section">
+        <div class="ws-section-header">Settings</div>
+        <div class="ws-settings">
+          <div class="ws-setting">
+            <label class="ws-checkbox">
+              <input type="checkbox" id="autoReconnect" />
+              <span>Auto Reconnect</span>
+            </label>
+            <div class="ws-setting-input">
+              <label>Interval:</label>
+              <input type="number" id="reconnectInterval" class="input ws-small-input" value="5" min="1" />
+              <span>s</span>
+            </div>
+          </div>
+          <div class="ws-setting">
+            <label class="ws-checkbox">
+              <input type="checkbox" id="enableHeartbeat" />
+              <span>Heartbeat (Ping)</span>
+            </label>
+            <div class="ws-setting-input">
+              <label>Interval:</label>
+              <input type="number" id="heartbeatInterval" class="input ws-small-input" value="30" min="1" />
+              <span>s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws-section ws-messages-section">
+        <div class="ws-section-header">
+          Messages
+          <span class="ws-message-count" id="messageCount">0</span>
+        </div>
+        <div class="ws-messages-toolbar">
+          <button class="btn btn-small btn-secondary" id="clearMessagesBtn">
+            Clear All
+          </button>
+        </div>
+        <div class="ws-messages" id="messagesContainer">
+          <div class="ws-empty-message">No messages yet</div>
+        </div>
+      </div>
+
+      <div class="ws-section">
+        <div class="ws-section-header">Send Message</div>
+        <div class="ws-send">
+          <textarea id="messageInput" class="textarea ws-textarea" placeholder='{"type": "hello"}'></textarea>
+          <div class="ws-send-buttons">
+            <button class="btn btn-small btn-secondary" id="clearInputBtn">
+              Clear
+            </button>
+            <button class="btn btn-small btn-primary" id="sendBtn">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/sidebar.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initSidebar('websocket-debugger');
+        if (window.initWebSocketDebugger) {
+          window.initWebSocketDebugger();
+        }
+      });
+    </script>
+  </body>
+</html>

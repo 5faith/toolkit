@@ -72,3 +72,7 @@ toolkit/
 - WebRTC 曾因 CORS 信令问题被移除（jswebrtc 需要 HTTP POST 到 SRS 服务器，跨域时无法配置 CORS）
 - 纯前端项目，无服务端，所有工具在浏览器端运行
 - Python 格式化: black, 行长度 100（如有 Python 脚本）
+
+## 文档
+
+- 每次更新代码, 需要同步修改内容到[update.md](./doc/update.md), 表明修改内容和日期

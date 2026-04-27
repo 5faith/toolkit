@@ -13,6 +13,7 @@ class Formatter {
   init() {
     this.cacheElements();
     this.bindEvents();
+    this.updatePathQueryState();
   }
 
   cacheElements() {
@@ -24,6 +25,13 @@ class Formatter {
     this.outputTree = document.getElementById('outputTree');
     this.treeContainer = document.getElementById('treeContainer');
     this.indentSelect = document.getElementById('indentSelect');
+    this.pathInput = document.getElementById('pathInput');
+    this.pathBtn = document.getElementById('pathBtn');
+    this.editorContainer = document.getElementById('editorContainer');
+    this.resultPanel = document.getElementById('resultPanel');
+    this.resultEditor = document.getElementById('resultEditor');
+    this.copyResultBtn = document.getElementById('copyResultBtn');
+    this.closeResultBtn = document.getElementById('closeResultBtn');
   }
 
   bindEvents() {
@@ -41,6 +49,129 @@ class Formatter {
     });
 
     this.indentSelect.addEventListener('change', (e) => this.updateIndent(e.target.value));
+
+    this.inputEditor.addEventListener('paste', () => {
+      setTimeout(() => this.format(), 0);
+    });
+
+    this.pathBtn.addEventListener('click', () => this.queryPath());
+    this.pathInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') this.queryPath();
+    });
+    this.copyResultBtn.addEventListener('click', () => this.copyResult());
+    this.closeResultBtn.addEventListener('click', () => this.closeResult());
+  }
+
+  getValueByPath(obj, path) {
+    const segments = [];
+    const regex = /([^\[\].]+)|\[(\d+)\]/g;
+    let match;
+    while ((match = regex.exec(path)) !== null) {
+      segments.push(match[2] !== undefined ? parseInt(match[2], 10) : match[1]);
+    }
+
+    let current = obj;
+    for (const segment of segments) {
+      if (current === null || current === undefined) {
+        throw new Error(`Path "${path}" does not exist`);
+      }
+      if (typeof segment === 'number') {
+        if (!Array.isArray(current)) {
+          throw new Error(`Expected array at "${path}", got ${typeof current}`);
+        }
+        if (segment < 0 || segment >= current.length) {
+          throw new Error(`Index [${segment}] out of bounds`);
+        }
+        current = current[segment];
+      } else {
+        if (typeof current !== 'object') {
+          throw new Error(`Expected object at "${path}", got ${typeof current}`);
+        }
+        if (!(segment in current)) {
+          throw new Error(`Key "${segment}" not found`);
+        }
+        current = current[segment];
+      }
+    }
+    return current;
+  }
+
+  queryPath() {
+    const path = this.pathInput.value.trim();
+    if (!path) {
+      this.closeResult();
+      return;
+    }
+
+    const input = this.inputEditor.value;
+    if (!input.trim()) {
+      this.showError('No JSON data to query');
+      return;
+    }
+
+    try {
+      let currentMode = this.mode;
+      if (currentMode === 'auto') {
+        currentMode = this.detectMode(input);
+      }
+      if (currentMode !== 'json') {
+        this.showError('Path query is only available for JSON');
+        return;
+      }
+
+      const obj = JSON.parse(input);
+      const result = this.getValueByPath(obj, path);
+      const formatted = JSON.stringify(result, null, this.indent);
+      this.resultEditor.innerHTML = this.highlightJSON(formatted);
+      this.resultEditor.className = 'editor output-editor hl-json';
+      this.resultPanel.classList.add('active');
+      this.editorContainer.classList.add('has-result');
+      this.showStatus(`Result for: ${path}`, 'success');
+      this.hideError();
+    } catch (error) {
+      this.showError(error.message);
+      this.showStatus('Error', 'error');
+    }
+  }
+
+  closeResult() {
+    this.resultPanel.classList.remove('active');
+    this.editorContainer.classList.remove('has-result');
+    this.resultEditor.textContent = '';
+  }
+
+  copyResult() {
+    const content = this.resultEditor.textContent;
+    if (!content) return;
+
+    navigator.clipboard.writeText(content).then(() => {
+      this.showStatus('Result copied!', 'success');
+      setTimeout(() => {
+        this.showStatus('', '');
+      }, 2000);
+    }).catch(() => {
+      const textarea = document.createElement('textarea');
+      textarea.value = content;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      this.showStatus('Result copied!', 'success');
+      setTimeout(() => {
+        this.showStatus('', '');
+      }, 2000);
+    });
+  }
+
+  updatePathQueryState() {
+    const isJson = this.mode === 'json' || this.mode === 'auto';
+    this.pathInput.disabled = !isJson;
+    this.pathBtn.disabled = !isJson;
+    if (!isJson) {
+      this.pathInput.placeholder = 'JSON only';
+    } else {
+      this.pathInput.placeholder = 'e.g. users[0].name';
+    }
   }
 
   detectMode(input) {
@@ -62,6 +193,7 @@ class Formatter {
     if (this.inputEditor.value.trim()) {
       this.format();
     }
+    this.updatePathQueryState();
   }
 
   switchView(view) {
@@ -107,6 +239,8 @@ class Formatter {
 
       this.outputEditor.innerHTML = output;
       this.outputEditor.className = `editor output-editor hl-${currentMode}`;
+      this.pathInput.value = '';
+      this.closeResult();
       this.showStatus('Formatted', 'success');
       this.hideError();
 
@@ -338,6 +472,8 @@ class Formatter {
     this.inputEditor.value = '';
     this.outputEditor.textContent = '';
     this.treeContainer.innerHTML = '';
+    this.pathInput.value = '';
+    this.closeResult();
     this.showStatus('');
     this.hideError();
   }

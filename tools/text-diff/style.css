@@ -158,6 +158,18 @@
   opacity: 0.5;
 }
 
+.diff-line.same {
+  background: rgba(31, 138, 101, 0.1);
+}
+
+.diff-line.deleted {
+  background: rgba(207, 45, 86, 0.15);
+}
+
+.diff-line.added {
+  background: rgba(207, 45, 86, 0.15);
+}
+
 .line-number {
   display: inline-flex;
   align-items: flex-start;
@@ -180,12 +192,12 @@
 
 /* Character-level highlights */
 .diff-char-deleted {
-  background: rgba(207, 45, 86, 0.2);
+  background: rgba(207, 45, 86, 0.3);
   border-radius: 2px;
 }
 
 .diff-char-added {
-  background: rgba(31, 138, 101, 0.2);
+  background: rgba(207, 45, 86, 0.3);
   border-radius: 2px;
 }
 

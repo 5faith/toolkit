@@ -29,6 +29,10 @@ class TextDiffTool {
     this.compareBtn.addEventListener('click', () => this.compare());
     this.clearBtn.addEventListener('click', () => this.clear());
     this.swapBtn.addEventListener('click', () => this.swap());
+    
+    // Auto compare on input blur
+    this.originalInput.addEventListener('blur', () => this.compare());
+    this.modifiedInput.addEventListener('blur', () => this.compare());
   }
 
   compare() {
@@ -165,8 +169,8 @@ class TextDiffTool {
 
     for (const line of lines) {
       if (line.type === 'same') {
-        originalHTML.push(this.renderLine(line.originalLine, line.originalContent, ''));
-        modifiedHTML.push(this.renderLine(line.modifiedLine, line.modifiedContent, ''));
+        originalHTML.push(this.renderLine(line.originalLine, line.originalContent, 'same'));
+        modifiedHTML.push(this.renderLine(line.modifiedLine, line.modifiedContent, 'same'));
       } else if (line.type === 'deleted') {
         originalHTML.push(this.renderLine(line.originalLine, line.originalContent, 'deleted'));
         modifiedHTML.push(this.renderLine('', '', 'empty'));

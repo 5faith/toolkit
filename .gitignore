@@ -67,7 +67,7 @@ node_modules/
 graphify-out/
 .sisyphus/
 .opencode/
-opencode.json
+.opencode-router
 
 
 

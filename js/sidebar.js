@@ -22,6 +22,11 @@ const TOOLS = [
     id: 'flv-player',
     name: 'FLV Player',
     path: 'stream-player/index.html'
+  },
+  {
+    id: 'text-diff',
+    name: 'Text Diff',
+    path: 'text-diff/index.html'
   }
 ];
 

@@ -63,11 +63,7 @@ node_modules/
 
 
 .vscode
-.claude/
-graphify-out/
-.sisyphus/
-.opencode/
-.opencode-router
+
 
 
 

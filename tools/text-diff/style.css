@@ -1,0 +1,224 @@
+/* ============================================
+   Text Diff Tool Styles
+   ============================================ */
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h2 {
+  font-size: 2.25rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: rgba(38, 37, 30, 0.55);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--color-surface-400);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(38, 37, 30, 0.55);
+}
+
+.status.success {
+  color: var(--color-success);
+}
+
+.status.error {
+  color: var(--color-error);
+}
+
+/* Input Container */
+.input-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  min-height: 240px;
+  margin-bottom: 24px;
+}
+
+.input-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-cream);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.input-header {
+  padding: 10px 16px;
+  background: var(--color-surface-400);
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: rgba(38, 37, 30, 0.7);
+}
+
+.input-editor {
+  flex: 1;
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.67;
+  color: var(--color-dark);
+  background: var(--color-cream);
+  border: none;
+  outline: none;
+  resize: vertical;
+  min-height: 200px;
+}
+
+/* Diff Container */
+.diff-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  min-height: 300px;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.diff-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-cream);
+  border-right: 1px solid var(--border-primary);
+}
+
+.diff-panel:last-child {
+  border-right: none;
+}
+
+.diff-header {
+  padding: 10px 16px;
+  background: var(--color-surface-400);
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: rgba(38, 37, 30, 0.7);
+}
+
+.diff-content {
+  flex: 1;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.67;
+}
+
+/* Diff Lines */
+.diff-line {
+  display: flex;
+  min-height: 1.67em;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.diff-line:last-child {
+  border-bottom: none;
+}
+
+.diff-line.deleted {
+  background: rgba(207, 45, 86, 0.08);
+}
+
+.diff-line.added {
+  background: rgba(31, 138, 101, 0.08);
+}
+
+.diff-line.empty {
+  background: var(--color-surface-100);
+  opacity: 0.5;
+}
+
+.line-number {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 48px;
+  flex-shrink: 0;
+  padding: 0 8px;
+  background: var(--color-surface-300);
+  color: rgba(38, 37, 30, 0.4);
+  user-select: none;
+  border-right: 1px solid var(--border-primary);
+}
+
+.line-content {
+  flex: 1;
+  padding: 0 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Character-level highlights */
+.diff-char-deleted {
+  background: rgba(207, 45, 86, 0.2);
+  border-radius: 2px;
+}
+
+.diff-char-added {
+  background: rgba(31, 138, 101, 0.2);
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .input-container,
+  .diff-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .input-editor {
+    min-height: 150px;
+  }
+
+  .diff-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .diff-panel:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

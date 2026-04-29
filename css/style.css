@@ -112,6 +112,21 @@ code {
   padding: 0 24px;
 }
 
+/* 工具页面默认预留侧边栏空间，防止布局偏移 */
+main.container:not(:has(.sidebar-layout)) {
+  padding-left: var(--sidebar-width);
+}
+
+main.container:not(:has(.sidebar-layout)) > * {
+  max-width: calc(1500px - var(--sidebar-width));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.container:has(.sidebar-layout) {
+  padding-left: 0;
+}
+
 /* Sidebar Layout */
 .sidebar-layout {
   display: flex;

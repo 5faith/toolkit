@@ -64,9 +64,6 @@ function initSidebar(currentToolId) {
   const main = document.querySelector('main');
   if (!main) return;
 
-  // Hide content initially to prevent flicker
-  main.style.opacity = '0';
-
   const sidebarLayout = document.createElement('div');
   sidebarLayout.className = 'sidebar-layout';
 
@@ -84,12 +81,6 @@ function initSidebar(currentToolId) {
 
   main.style.paddingTop = '0';
   main.style.paddingBottom = '0';
-
-  // Show content after sidebar is rendered
-  requestAnimationFrame(() => {
-    main.style.transition = 'opacity 150ms ease';
-    main.style.opacity = '1';
-  });
 }
 
 if (typeof module !== 'undefined' && module.exports) {

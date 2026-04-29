@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Diff - toolkit</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="../../favicon.ico" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="../../index.html" class="nav__brand">toolkit</a>
+        <ul class="nav__links">
+          <li><a href="../../index.html" class="nav__link">Tools</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container" style="padding-top: 32px; padding-bottom: 48px">
+      <div class="page-header">
+        <h2>Text Diff</h2>
+        <p>对比两段文本的差异</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button class="btn btn-small btn-primary" id="compareBtn">
+            Compare
+          </button>
+          <button class="btn btn-small btn-secondary" id="clearBtn">Clear</button>
+          <button class="btn btn-small btn-secondary" id="swapBtn">Swap</button>
+        </div>
+        <div class="toolbar-right">
+          <span id="status" class="status"></span>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="input-panel">
+          <div class="input-header">Original</div>
+          <textarea
+            id="originalInput"
+            class="input-editor"
+            placeholder="Paste original text here..."
+          ></textarea>
+        </div>
+        <div class="input-panel">
+          <div class="input-header">Modified</div>
+          <textarea
+            id="modifiedInput"
+            class="input-editor"
+            placeholder="Paste modified text here..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="diff-container" id="diffContainer">
+        <div class="diff-panel">
+          <div class="diff-header">Original</div>
+          <div class="diff-content" id="originalDiff"></div>
+        </div>
+        <div class="diff-panel">
+          <div class="diff-header">Modified</div>
+          <div class="diff-content" id="modifiedDiff"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/sidebar.js"></script>
+    <script src="lib/diff-match-patch.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initSidebar('text-diff');
+        if (window.initDiffTool) {
+          window.initDiffTool();
+        }
+      });
+    </script>
+  </body>
+</html>
